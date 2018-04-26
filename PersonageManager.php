@@ -27,6 +27,8 @@ class PersonageManager {
         $perso->hydrate([
             'id' => $this->_db->lastInsertId(),
             'damages' => 0,
+            'experience' => 0,
+            'level' => 0,
         ]);
     }
     
@@ -62,11 +64,11 @@ class PersonageManager {
     
     public function get($infos) {
         if (is_int($infos)) {
-            $q = $this->_db->query('SELECT id, name, damages FROM personnages WHERE id = '.$infos);
+            $q = $this->_db->query('SELECT id, name, damages, experience, level FROM personnages WHERE id = '.$infos);
             $donnees = $q->fetch(PDO::FETCH_ASSOC);
             return new Personnage($donnees);
         } else {
-            $q = $this->_db->prepare('SELECT id, name, damages FROM personnages WHERE name = :name');
+            $q = $this->_db->prepare('SELECT id, name, damages, experience, level FROM personnages WHERE name = :name');
             $q->execute([':name' => $infos]);
             return new Personnage($q->fetch(PDO::FETCH_ASSOC));
         }
@@ -76,7 +78,7 @@ class PersonageManager {
     {
         $persos = [];
 
-        $q = $this->_db->prepare('SELECT id, name, damages FROM personnages WHERE name <> :nom ORDER BY name');
+        $q = $this->_db->prepare('SELECT id, name, damages, experience, level FROM personnages WHERE name <> :nom ORDER BY name');
         $q->execute([':nom' => $name]);
 
         while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
@@ -95,8 +97,10 @@ class PersonageManager {
         // UPDATE SET degats = WHERE id =
         // Bindvalue degats et id
         // execute
-        $q = $this->_db->prepare('UPDATE personnages SET damages = :damages WHERE id = :id');
+        $q = $this->_db->prepare('UPDATE personnages SET damages = :damages, experience = :experience, level = :level WHERE id = :id');
         $q->bindValue(':damages', $perso->damages());
+        $q->bindValue(':experience', $perso->experience());
+        $q->bindValue(':level', $perso->level());
         $q->bindValue(':id', $perso->id());
         
         $q->execute();
