@@ -71,7 +71,7 @@ elseif (isset($_GET['frapper'])) { // Si on a cliqué sur perso pour le frapper
                 case Personnage::PERSONNAGE_FRAPPE:
                     $message = 'Le Personnage a bien été frappé';
                     
-                    $perso->setExperience($perso->level());
+                    $perso->setExperience();
                     
                     $manager->update($perso);
                     $manager->update($persoAFrapper);
@@ -81,7 +81,7 @@ elseif (isset($_GET['frapper'])) { // Si on a cliqué sur perso pour le frapper
                 case Personnage::PERSONNAGE_TUE:
                     $message = 'Vous avez tué ce personnage';
                     
-                    $perso->setExperience($perso->level());
+                    $perso->setExperience();
                     
                     $manager->update($perso);
                     $manager->delete($persoAFrapper);
@@ -117,7 +117,8 @@ elseif (isset($_GET['frapper'])) { // Si on a cliqué sur perso pour le frapper
     <fieldset>
       <legend>Mes informations</legend>
       <p>
-        Nom : <?= htmlspecialchars($perso->name()) ?><br />
+        Nom : <?= htmlspecialchars($perso->name()); ?><br />
+        Force : <?= $perso->strengh(); ?><br />
         Dégâts : <?= $perso->damages() ?><br />
         Expérience : <?= $perso->experience(); ?><br />
         Niveau : <?= $perso->level(); ?>
@@ -141,7 +142,8 @@ elseif (isset($_GET['frapper'])) { // Si on a cliqué sur perso pour le frapper
         echo '<a href="?frapper=', $unPerso->id(), '">', 
               htmlspecialchars($unPerso->name()), '</a> (dégâts : ', 
               $unPerso->damages(), ', expérience : ', $unPerso->experience(), 
-              ', niveau : ', $unPerso->level(), ')<br />';
+              ', niveau : ', $unPerso->level(), ', force : ', $unPerso->strengh (),
+              ')<br />';
     }
     ?>
           </p>
