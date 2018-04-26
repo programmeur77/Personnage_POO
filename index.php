@@ -118,8 +118,8 @@ elseif (isset($_GET['frapper'])) { // Si on a cliqué sur perso pour le frapper
       <legend>Mes informations</legend>
       <p>
         Nom : <?= htmlspecialchars($perso->name()) ?><br />
-        Dégâts : <?= $perso->damages() ?>
-        Expérience : <?= $perso->experience(); ?>
+        Dégâts : <?= $perso->damages() ?><br />
+        Expérience : <?= $perso->experience(); ?><br />
         Niveau : <?= $perso->level(); ?>
       </p>
     </fieldset>
