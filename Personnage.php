@@ -108,6 +108,28 @@ class Personnage {
         }
     }
     
+    public function setExperience(int $level)
+    {
+        switch (true)
+        {
+            case ($level >= 0 && $level < 20):
+                $this->_experience += 10;
+                break;
+            case ($level >= 20 && $level < 50):
+                $this->_experience += 15;
+                break;
+            case ($level >= 50 && $level < 80):
+                $this->_experience += 20;
+                break;
+            case ($level >= 80 && $level < 100):
+                $this->_experience += 25;
+                break;
+            case ($level == 100):
+                $this->_experience = 0;
+                $this->setLevel(1);
+        }
+    }
+    
     public function setId($id) {
         $id = (int)$id;
         
@@ -121,7 +143,7 @@ class Personnage {
         $level = (int) $level;
         
         if ($level >= 0 && $level <= 100) {
-            $this->_level = $level;
+            $this->_level += $level;
         }
     }
     
