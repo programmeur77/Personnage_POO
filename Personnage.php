@@ -11,7 +11,8 @@ class Personnage {
             $_name,
             $_damages,
             $_experience,
-            $_level;
+            $_level,
+            $_strengh;
     
     const CEST_MOI = 1;
     const PERSONNAGE_TUE = 2;
@@ -66,7 +67,7 @@ class Personnage {
      * @return type
      */
     public function recevoirDegats(Personnage $perso) {
-        $this->_damages += 5;
+        $this->_damages += $this->_strengh;
         
         if ($this->_damages >= 100)
         {
@@ -98,6 +99,11 @@ class Personnage {
         return $this->_name;
     }
     
+    public function strengh() {
+        return $this->_strengh;
+    }
+
+
     // SETTER //
     public function setDamages($damages){
         $damages = (int)$damages;
@@ -108,30 +114,12 @@ class Personnage {
         }
     }
     
-    public function setExperience($level)
+    public function setExperience()
     {
-        $level = (int) $level;
         if ($this->_experience < 100)
         {
-            switch (true)
-            {
-                case ($level >= 0 && $level < 20):
-                    $this->_experience += 10;
-                    break;
-                case ($level >= 20 && $level < 50):
-                    $this->_experience += 15;
-                    break;
-                case ($level >= 50 && $level < 80):
-                    $this->_experience += 20;
-                    break;
-                case ($level >= 80 && $level < 100):
-                    $this->_experience += 25;
-                    break;
-                default :
-                    echo 'Erreur : Expérience trop élevée (100 maximum)';
-                    break;
-            }
-        } elseif ($this->_experience == 100) {
+            $this->_experience += 10;
+        } elseif ($this->_experience >= 100) {
             $this->_experience = 0;
             $this->setLevel(1);    
     }
@@ -151,12 +139,50 @@ class Personnage {
         
         if ($level >= 0 && $level <= 100) {
             $this->_level += $level;
+            $this->setStrengh($level);
         }
     }
     
     public function setName($name) {
         if (is_string($name)){
             $this->_name = $name;
+        }
+    }
+    
+    public function setStrengh($level) {
+        $level = (int) $level;
+        
+        switch (true) {
+            case ($level >= 0 && $level < 10):
+                $this->_strengh = 5;
+                break;
+            case ($level >= 10 && $level < 20):
+                $this->_strengh = 10;
+                break;
+            case ($level >= 20 && $level < 30):
+                $this->_strengh = 15;
+                break;
+            case ($level >= 30 && $level < 40):
+                $this->_strengh = 20;
+                break;
+            case ($level >= 40 && $level < 50):
+                $this->_strengh = 25;
+                break;
+            case ($level >= 50 && $level < 60):
+                $this->_strengh = 30;
+                break;
+            case ($level >= 60 && $level < 70):
+                $this->_strengh = 35;
+                break;
+            case ($level >= 70 && $level < 80):
+                $this->_strengh = 40;
+                break;
+            case ($level >= 80 && $level <= 100):
+                $this->_strengh = 45;
+                break;
+            default :
+                echo 'Niveau inconnu';
+                break;
         }
     }
 }
