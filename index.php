@@ -141,7 +141,7 @@ elseif (isset($_GET['frapper'])) { // Si on a cliqué sur perso pour le frapper
         echo '<a href="?frapper=', $unPerso->id(), '">', 
               htmlspecialchars($unPerso->name()), '</a> (dégâts : ', 
               $unPerso->damages(), ', expérience : ', $unPerso->experience(), 
-              ', niveau : ', $unPerso->level(), '<br />';
+              ', niveau : ', $unPerso->level(), ')<br />';
     }
     ?>
           </p>
